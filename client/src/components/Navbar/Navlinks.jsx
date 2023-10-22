@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import links from "../../utils/links";
+import links from "../../utils/sidebarLinks";
 import {NavLink} from "react-router-dom";
 import { useUiContext } from "../../pages/HomeLayout";
 
@@ -45,7 +45,7 @@ const Wrapper = styled.div`
     a {
         color: var(--black);
         font-size: 2.5rem;
-        text-transform: capitalize
+        text-transform: capitalize;
     }
     .icon {
         display: flex;
@@ -54,10 +54,17 @@ const Wrapper = styled.div`
     }
 
     .nav-link {
+        display: block;
+        transition: var(--transition);
+    }
+
+    .nav-link:hover {
+        transform: scale(1.1);
+        opacity: 0.7;
         
     }
 
     .active {
-        color: var(--primary-500);
+        color: var(--primary-700)
     }
 `;

@@ -19,7 +19,7 @@ const HomeLayout = () => {
     useEffect(() => {
         setTimeout(() => {
             setShowLoadingAnimation(false)
-        }, 4000)
+        }, 2000)
     }, [])
 
     return (

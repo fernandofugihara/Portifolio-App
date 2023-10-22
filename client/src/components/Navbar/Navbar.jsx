@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {AiFillGithub} from "react-icons/ai";
 import { useUiContext } from "../../pages/HomeLayout";
+import links from "../../utils/landingLinks";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -8,6 +10,14 @@ const Navbar = () => {
 
     return (
         <Wrapper>
+            <div className="page-links">
+              {links.map((link) => {
+                const {text, path} = link;
+                return (
+                  <Link to={path} className="nav-link">{text}</Link>
+                )
+              })}
+            </div>
             <a target="_blank" className="github-link" href="https://github.com/fernandofugihara">
                 <AiFillGithub/>
             </a>
@@ -42,6 +52,22 @@ export default Navbar;
 
 const Wrapper = styled.nav`
     overflow: hidden;
+
+    .page-links {
+      position: fixed;
+      top: 15px;
+      left: 20px;
+    }
+
+    .nav-link {
+      margin-right: 10px;
+      color: var(--black);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      opacity: 0.6;
+    }
 
     .github-link {
         position: absolute;
