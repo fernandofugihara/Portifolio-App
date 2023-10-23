@@ -19,7 +19,7 @@ const Wrapper = styled.div`
         justify-content: center;
         align-items: center;
         position: fixed;
-        background-color: var(--grey-200);
+        background-color: var(--background-secondary-color);
         z-index: 100000000;
         transition: 1s;
     }

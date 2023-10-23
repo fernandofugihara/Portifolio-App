@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Navlinks from "./Navlinks";
+import Navlinks from "./SidebarLinks";
 import { useUiContext } from "../../pages/HomeLayout";
 
 const SmallNavbar = () => {

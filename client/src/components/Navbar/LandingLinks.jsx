@@ -20,24 +20,46 @@ const Wrapper = styled.nav`
     top: 56px;
     z-index: 2;
     left: 2px;
+
+    @media (max-width: 600px) {
+      .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 9vh;
+        width: 55vw;
+        gap: 1rem;
+        transform: translateY(-300vw);
+        transition: 1s;
+      }
+      .content.active {
+        transform: translateY(1vh);
+        
+      }      
+    }
+    @media (min-width: 600px) {
+        .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 9vh;
+        width: 55vw;
+        gap: 1rem;
+        transform: translateY(-300%);
+        transition: 1s;
+      }
+      .content.active {
+        transform: translateY(-90%);
+      }      
+    }
     
-    .content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 9vh;
-      width: 55vw;
-      gap: 1rem;
-      transform: translateY(-300%);
-      transition: 1s;
-    }
-    .content.active {
-      transform: translateY(-90%);
-    }
+
     .nav-link {
       color: var(--text-color);
       transition: var(--transition);
       font-size: 1rem;
+      display: inline;
     }
 
     .nav-link:hover {

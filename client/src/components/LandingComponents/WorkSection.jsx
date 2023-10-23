@@ -48,13 +48,13 @@ const Wrapper = styled.section`
         justify-content: center;
         align-items: center;
         padding: 1rem 0 0;
+        text-align: center;
     }
     h1 {
         display: flex;
         position: relative;
         transform-origin: right;
         justify-content: center;
-        min-width: 500px;
     }
 
     .animate {

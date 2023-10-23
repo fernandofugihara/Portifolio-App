@@ -79,10 +79,23 @@ const Wrapper = styled.div`
         cursor: pointer;
         transition: transform 1s;
         box-shadow: var(--shadow-2);
+        z-index: 3;
     }
 
+    @media (max-width: 992px) {
+        .little-nav-btn.active {
+            transform: translateX(53vw);
+        }
+    }
+    @media (max-width: 600px) {
     .little-nav-btn.active {
-        transform: translateX(1100%);
+            transform: translateX(40vw);
+        }
+    }
+    @media (min-width: 992px){
+        .little-nav-btn.active {
+            transform: translateX(43vw);
+        }   
     }
 
     // backwards animation
@@ -121,10 +134,11 @@ const Wrapper = styled.div`
 
     .home {
         display: flex;
-        height: 100vh;
         align-items: center;
         justify-content: center;
+        height: 100vh;
     }
+
     h1 {
         display: flex;
         justify-content: center;
@@ -134,7 +148,13 @@ const Wrapper = styled.div`
     }
 
     p {
-        padding-bottom: 3px;
+        margin-top: 0.2rem;
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0 0;
+        text-align: center;
     }
 
     .hide {
