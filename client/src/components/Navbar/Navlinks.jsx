@@ -7,11 +7,6 @@ const Navlinks = () => {
 
     const {toggleSidebar} = useUiContext();
 
-    const hello = () => {
-        console.log("hello")
-    }
-
-
   return (
     <Wrapper>
         {links.map((link) => {
@@ -43,7 +38,7 @@ export default Navlinks;
 
 const Wrapper = styled.div`
     a {
-        color: var(--black);
+        color: var(--text-color);
         font-size: 2.5rem;
         text-transform: capitalize;
     }
@@ -65,6 +60,6 @@ const Wrapper = styled.div`
     }
 
     .active {
-        color: var(--primary-700)
+        color: var(--primary-500)
     }
 `;

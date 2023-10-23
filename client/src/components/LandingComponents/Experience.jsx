@@ -1,17 +1,19 @@
 import styled from "styled-components";
 
-const Contact = () => {
+const Experience = () => {
     return (
-        <Wrapper id="contact">
+        <Wrapper id="experience">
             <div className="content">
-                <h1>Contact</h1>
+                <h1>Experience</h1>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, eius?
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, molestias.
                 </p>
             </div>
         </Wrapper>
-    )
+    );
 };
+
+export default Experience;
 
 const Wrapper = styled.section`
     overflow: hidden;
@@ -31,7 +33,3 @@ const Wrapper = styled.section`
         display: block;
     }
 `;
-
-
-
-export default Contact;

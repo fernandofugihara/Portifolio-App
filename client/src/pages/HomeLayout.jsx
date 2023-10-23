@@ -3,14 +3,23 @@ import Navbar from "../components/Navbar/Navbar";
 import SmallNavbar from "../components/Navbar/SmallSidebar.";
 import { useContext, createContext, useState, useEffect } from "react";
 import Loading from "../components/UI/Loading";
+import { checkDefaultTheme } from "../App";
 
 const uiContext = createContext();
 
 const HomeLayout = () => {
 
-    const [isInitializing, setIsInitializing] = useState(true);
     const [showLoadingAnimation, setShowLoadingAnimation] = useState(true);
     const [showSidebar, setShowSidebar] = useState(false);
+    const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
+
+    const toggleDarkTheme = () => {
+        const newDarkTheme = !isDarkTheme;
+        setIsDarkTheme(newDarkTheme);
+        document.body.classList.toggle("dark-theme", isDarkTheme);
+        localStorage.setItem("darkTheme", newDarkTheme);
+    };
+
 
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar)
@@ -19,13 +28,15 @@ const HomeLayout = () => {
     useEffect(() => {
         setTimeout(() => {
             setShowLoadingAnimation(false)
-        }, 2000)
+        }, 1000)
     }, [])
 
     return (
         <uiContext.Provider value={{
             showSidebar,
-            toggleSidebar
+            toggleSidebar,
+            isDarkTheme,
+            toggleDarkTheme
         }}>  
             <main>
                 <Loading classes={showLoadingAnimation ? "loading-container" : "hide"}/>

@@ -45,13 +45,13 @@ const Wrapper = styled.nav`
   .content {
     position: relative;
     background-color: var(--background-secondary-color);
-    height: 95vh;
-    width: var(--fluid-width);
+    height: 100vh;
+    width: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     border-radius: var(--border-radius);
-    padding: 4rem 2rem;
+    padding: 8rem 2rem;
   }
   .close-btn {
     position: absolute;

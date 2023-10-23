@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const Loading = ({classes}) => {
-    console.log(classes)
     return (
         <Wrapper>
             <div className={`loading-container ${classes}`}>
