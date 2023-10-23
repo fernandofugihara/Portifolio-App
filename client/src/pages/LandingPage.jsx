@@ -16,10 +16,38 @@ const LandingPage = () => {
 
     return (
         <Wrapper>
-            <button className="btn little-nav-btn" onClick={toggleLittleNav}>
-                nav
+            <button onClick={toggleLittleNav} className={`${showLittleNav ? " little-nav-btn active" : "little-nav-btn"}`} aria-controls="primary-navigation" aria-expanded={showLittleNav}>
+            <svg fill='var(--button-color)' className='hamburguer' viewBox='0 0 100 100' width="30">
+                <rect 
+                className='line top' 
+                width="60" 
+                height="7"
+                x="20"
+                y="25"
+                rx="5"
+                >
+                </rect>
+                <rect 
+                className='line middle' 
+                width="60" 
+                height="7"
+                x="20"
+                y="45"
+                rx="5"
+                >
+                </rect>
+                <rect 
+                className='line bottom' 
+                width="60" 
+                height="7"
+                x="20"
+                y="65"
+                rx="5"
+                >
+                </rect>
+            </svg>
             </button>
-            {showLittleNav && <LandingLinks onClick={toggleLittleNav}/>}
+            <LandingLinks showLittleNav={showLittleNav} onClick={toggleLittleNav}/>
             <div id="home" className="home">
                 <div className="first-page">
                     <h1 ref={h1Ref} className={`${h1IsVisible ? "animate" : "hide"}`}>Fernando Fugihara</h1>
@@ -40,11 +68,57 @@ const LandingPage = () => {
 export default LandingPage;
 
 const Wrapper = styled.div`
+
     .little-nav-btn {
+        top: 12px;
+        left: 15px;
+        --button-color: var(--text-color);
+        background: var(--background-secondary-color);
         position: fixed;
-        color: var(--background-color);
-        background-color: var(--text-color);
+        border-radius: 100%;
+        cursor: pointer;
+        transition: transform 1s;
+        box-shadow: var(--shadow-2);
     }
+
+    .little-nav-btn.active {
+        transform: translateX(1100%);
+    }
+
+    // backwards animation
+    .little-nav-btn .line {
+      transition:
+        y 300ms ease-in 300ms,
+        rotate 300ms ease-in,
+        opacity 0ms 300ms;
+      ;
+      transform-origin: center;
+      
+    }
+
+    .little-nav-btn.active .line {
+      transition:
+        y 300ms ease-in,
+        rotate 300ms ease-in 300ms,
+        opacity 0ms 300ms;
+      ;
+    }
+
+
+    .little-nav-btn.active .top {
+      y: 45;
+      rotate: 45deg;
+    }
+
+    .little-nav-btn.active .bottom {
+      y: 45;
+      rotate: -45deg
+    }
+
+    .little-nav-btn.active .middle {
+      opacity: 0;
+    }
+
     .home {
         display: flex;
         height: 100vh;
