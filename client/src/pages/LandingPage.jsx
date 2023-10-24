@@ -3,6 +3,8 @@ import { WorkSection, Experience, About, Contact } from "../components/LandingCo
 import {useInView} from "react-intersection-observer";
 import LandingLinks from "../components/Navbar/LandingLinks";
 import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const LandingPage = () => {
 
@@ -12,40 +14,62 @@ const LandingPage = () => {
 
     const toggleLittleNav = () => {
         setShowLittleNav(!showLittleNav);
-    }
+    };
+    
+    let progressBarHandler = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${totalScroll / windowHeight}`;
+      const progressBar = document.getElementById("progress-bar");
+      progressBar.style.transform = `scale(${scroll}, 1)`;
+      progressBar.style.opacity = `${scroll}`;
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", progressBarHandler);
+    }, [])
 
     return (
         <Wrapper>
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+
             <button onClick={toggleLittleNav} className={`${showLittleNav ? " little-nav-btn active" : "little-nav-btn"}`} aria-controls="primary-navigation" aria-expanded={showLittleNav}>
-            <svg fill='var(--button-color)' className='hamburguer' viewBox='0 0 100 100' width="30">
-                <rect 
-                className='line top' 
-                width="60" 
-                height="7"
-                x="20"
-                y="25"
-                rx="5"
-                >
-                </rect>
-                <rect 
-                className='line middle' 
-                width="60" 
-                height="7"
-                x="20"
-                y="45"
-                rx="5"
-                >
-                </rect>
-                <rect 
-                className='line bottom' 
-                width="60" 
-                height="7"
-                x="20"
-                y="65"
-                rx="5"
-                >
-                </rect>
-            </svg>
+            <svg stroke='var(--button-color)' className='hamburguer' viewBox='0 0 100 100' width="30">
+            <line 
+              className="line extra"
+              x1="10" x2="90"
+              y1="30" y2="30"
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeDasharray="80"
+              strokeDashoffset="0"
+            >
+            </line>
+            <line 
+              className="line top"
+              x1="90" x2="10"
+              y1="50" y2="50"
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeDasharray="80"
+              strokeDashoffset="0"
+            >
+            </line>
+            
+            <line 
+              className="line bottom"
+              x1="10" x2="90"
+              y1="70" y2="70"
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeDasharray="80"
+              strokeDashoffset="0"
+            >
+            </line>
+
+          </svg>
             </button>
             <LandingLinks showLittleNav={showLittleNav} onClick={toggleLittleNav}/>
             <div id="home" className="home">
@@ -68,18 +92,39 @@ const LandingPage = () => {
 export default LandingPage;
 
 const Wrapper = styled.div`
-
+    #progress-bar-container {
+        position: fixed;
+        z-index: 1;
+        background-color: white;
+        width: 100%;
+        top: 0;
+        left: 0;
+        box-shadow: var(--shadow-1)
+    }
+    #progress-bar {
+        background-color: black;
+        transform-origin: top left;
+        transform: scale(0,0);
+        opacity: 0;
+        width: 100%;
+    }
+    #progress-bar-container,
+    #progress-bar {
+        height: 10px;
+    }
     .little-nav-btn {
-        top: 12px;
+        top: 5px;
+        padding: 5px;
         left: 15px;
         --button-color: var(--text-color);
+        border-radius: 50%;
         background: var(--background-secondary-color);
         position: fixed;
-        border-radius: 100%;
         cursor: pointer;
         transition: transform 1s;
         box-shadow: var(--shadow-2);
         z-index: 3;
+        border: transparent;
     }
 
     @media (max-width: 992px) {
@@ -99,37 +144,59 @@ const Wrapper = styled.div`
     }
 
     // backwards animation
+    .little-nav-btn {
+      --button-color: var(--text-color)
+    }
+
     .little-nav-btn .line {
-      transition:
-        y 300ms ease-in 300ms,
-        rotate 300ms ease-in,
-        opacity 0ms 300ms;
-      ;
-      transform-origin: center;
-      
+      animation: to-open-icon 1s forwards;
+      transition: all 1s;
     }
 
     .little-nav-btn.active .line {
-      transition:
-        y 300ms ease-in,
-        rotate 300ms ease-in 300ms,
-        opacity 0ms 300ms;
-      ;
+      animation: to-close-icon 1s forwards;
     }
 
-
-    .little-nav-btn.active .top {
-      y: 45;
-      rotate: 45deg;
+    .little-nav-btn.active .line.extra {
+        opacity: 0;
     }
 
-    .little-nav-btn.active .bottom {
-      y: 45;
-      rotate: -45deg
+    .little-nav-btn .line.top {
+      --rotation: -45deg;
+      transform-origin: 65px;
+    }
+    .little-nav-btn .line.bottom{
+      --rotation: 45deg;
+      transform-origin: 59px 59px;
     }
 
-    .little-nav-btn.active .middle {
-      opacity: 0;
+    @keyframes to-close-icon{
+      0% {
+        stroke-dashoffset: 0;
+      }
+      40% {
+        stroke-dashoffset: 79.9;
+      }
+      60% {
+        stroke-dashoffset: 79.9; rotate: var(--rotation);
+      }
+      100% {
+        stroke-dashoffset: 0; rotate: var(--rotation);
+      }
+    }
+    @keyframes to-open-icon{
+      0% {
+        stroke-dashoffset: 0; rotate: var(--rotation);
+      }
+      40% {
+        stroke-dashoffset: 79.9; rotate: var(--rotation);
+      }
+      60% {
+        stroke-dashoffset: 79.9; ;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      } 
     }
 
     .home {
@@ -137,6 +204,7 @@ const Wrapper = styled.div`
         align-items: center;
         justify-content: center;
         height: 100vh;
+        top: 0;
     }
 
     h1 {

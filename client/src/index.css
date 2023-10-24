@@ -16,6 +16,7 @@ html {
 } /*16px*/
 
 :root {
+  --scroll: 0
   /* colors */
   --primary-50: #e0fcff;
   --primary-100: #ccfbf4;

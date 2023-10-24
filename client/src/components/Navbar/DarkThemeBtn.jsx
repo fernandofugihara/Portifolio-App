@@ -20,6 +20,7 @@ const DarkThemeBtn = () => {
 };
 
 const Wrapper = styled.div`
+    height: 0;
     label {
         width: 50px;
         height: 20px;
