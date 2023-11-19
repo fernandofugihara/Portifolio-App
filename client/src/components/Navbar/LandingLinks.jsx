@@ -4,12 +4,12 @@ import links from "../../utils/landingLinks"
 const LandingLinks = ({onClick, showLittleNav}) => {
   return ( 
     <Wrapper>
-      <div className={`${showLittleNav ? "content active" : "content"}`}>
-      {links.map((link) => {
-            const {text, path, order} = link;
-            return <a onClick={onClick} className="nav-link" href={`#${path}`} key={text}>{text}</a>
-        })}
-      </div>
+        <div className={`${showLittleNav ? "content active" : "content"}`}>
+        {links.map((link) => {
+              const {text, path} = link;
+              return <a onClick={onClick} className="nav-link" href={`#${path}`} key={text}>{text}</a>
+          })}
+        </div>
     </Wrapper>
   )
 }
@@ -17,40 +17,41 @@ const LandingLinks = ({onClick, showLittleNav}) => {
 const Wrapper = styled.nav`
     position: fixed;
     display: inline-block;
-    top: 56px;
+    top: 3.5rem;
     z-index: 2;
-    left: 2px;
 
-    @media (max-width: 600px) {
+    @media (max-width: 570px) {
+      left: 22vw;
+      top: 1rem;
       .content {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 9vh;
-        width: 55vw;
-        gap: 1rem;
+        gap: 0.75rem;
         transform: translateY(-300vw);
-        transition: 1s;
+        transition: 0.4s;
       }
       .content.active {
         transform: translateY(1vh);
         
       }      
     }
-    @media (min-width: 600px) {
+    @media (min-width: 570px) {
         .content {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 9vh;
-        width: 55vw;
+        position: absolute;
+        left: 3rem;
         gap: 1rem;
-        transform: translateY(-300%);
-        transition: 1s;
+        transform: translateY(-200vh);
+        transition: 0.4s;
+        opacity: 0;
       }
       .content.active {
-        transform: translateY(-90%);
+        transform: translateY(-2rem);
+        opacity: 1;
       }      
     }
     

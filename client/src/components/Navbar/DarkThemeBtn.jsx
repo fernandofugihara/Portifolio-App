@@ -42,7 +42,7 @@ const Wrapper = styled.div`
         position: absolute;
         top: 1px;
         left: 2px;
-        background: linear-gradient(180deg, #0bd6c5, #00d0ff);
+        background: var(--background-secondary-color);
         border-radius: 180px;
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
         transition: 1s;
@@ -72,7 +72,7 @@ const Wrapper = styled.div`
         left: 4.9px;
         z-index: 100;
         transition: 0.3s;
-        color: var(--white);
+        color: var(--black);
     }
     
     label .moon {

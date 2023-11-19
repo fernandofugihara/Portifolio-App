@@ -3,14 +3,15 @@ import { WorkSection, Experience, About, Contact } from "../components/LandingCo
 import {useInView} from "react-intersection-observer";
 import LandingLinks from "../components/Navbar/LandingLinks";
 import { useState } from "react";
-import { useRef } from "react";
 import { useEffect } from "react";
+import {Link} from "react-router-dom";
 
 const LandingPage = () => {
 
     const {ref: h1Ref, inView: h1IsVisible} = useInView()
     const {ref: pRef, inView: pIsVisible} = useInView();
-    const [showLittleNav, setShowLittleNav] = useState(false);
+    const {ref: logoRef, inView: logoIsVisible} = useInView();
+    const [showLittleNav, setShowLittleNav] = useState(true);
 
     const toggleLittleNav = () => {
         setShowLittleNav(!showLittleNav);
@@ -25,6 +26,7 @@ const LandingPage = () => {
       progressBar.style.opacity = `${scroll}`;
     };
 
+
     useEffect(() => {
         window.addEventListener("scroll", progressBarHandler);
     }, [])
@@ -35,55 +37,21 @@ const LandingPage = () => {
                 <div id="progress-bar"></div>
             </div>
 
-            <button onClick={toggleLittleNav} className={`${showLittleNav ? " little-nav-btn active" : "little-nav-btn"}`} aria-controls="primary-navigation" aria-expanded={showLittleNav}>
-            <svg stroke='var(--button-color)' className='hamburguer' viewBox='0 0 100 100' width="30">
-            <line 
-              className="line extra"
-              x1="10" x2="90"
-              y1="30" y2="30"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              strokeDashoffset="0"
-            >
-            </line>
-            <line 
-              className="line top"
-              x1="90" x2="10"
-              y1="50" y2="50"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              strokeDashoffset="0"
-            >
-            </line>
+            <span onClick={toggleLittleNav} className={`${showLittleNav ? " left-container-arrow1 active" : "left-container-arrow1"}`} aria-controls="primary-navigation" aria-expanded={showLittleNav}></span>
             
-            <line 
-              className="line bottom"
-              x1="10" x2="90"
-              y1="70" y2="70"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeDasharray="80"
-              strokeDashoffset="0"
-            >
-            </line>
-
-          </svg>
-            </button>
             <LandingLinks showLittleNav={showLittleNav} onClick={toggleLittleNav}/>
             <div id="home" className="home">
                 <div className="first-page">
-                    <h1 ref={h1Ref} className={`${h1IsVisible ? "animate" : "hide"}`}>Fernando Fugihara</h1>
-                    <p ref={pRef} className={`${pIsVisible ? "animate" : "hide"}`}>
+                    <h1 ref={h1Ref} className={`${h1IsVisible ? "animate-name" : "hide"}`}>Fernando Fugihara</h1>
+                    <p ref={pRef} className={`${pIsVisible ? "animate-name" : "hide"}`}>
                         I build interactive websites that run 
                         across plataforms and devices
                     </p>
                 </div>
             </div>
             <WorkSection/>
-            <Experience/>
             <About/>
+            <Experience/>
             <Contact/>
         </Wrapper>
     );
@@ -92,6 +60,57 @@ const LandingPage = () => {
 export default LandingPage;
 
 const Wrapper = styled.div`
+
+  .left-container-arrow1 {
+      position: fixed;
+      height: 0;
+      width: 0;
+      cursor: pointer;
+      top: 15px;
+      z-index: 1;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 20px solid var(--text-color);
+      transition: all 0.3s;
+      animation: pump 1s ease-in-out forwards infinite;
+
+  }
+
+  @keyframes pump {
+    0% {
+      transform: translateX(3px);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translate(3px);
+    }
+  }
+
+  .left-container-arrow1:hover {
+    transform: scale(1.4);
+  }
+
+  .left-container-arrow1.active {
+    rotate: 180deg;
+    padding-left: 1rem;
+    animation: super-pump 0.7s forwards infinite;
+  }
+
+  @keyframes super-pump {
+    0% {
+      transform: translateX(5px);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translate(5px);
+    }
+  }
+
+
     #progress-bar-container {
         position: fixed;
         z-index: 1;
@@ -110,93 +129,7 @@ const Wrapper = styled.div`
     }
     #progress-bar-container,
     #progress-bar {
-        height: 10px;
-    }
-    .little-nav-btn {
-        top: 5px;
-        padding: 5px;
-        left: 15px;
-        --button-color: var(--text-color);
-        border-radius: 50%;
-        background: var(--background-secondary-color);
-        position: fixed;
-        cursor: pointer;
-        transition: transform 1s;
-        box-shadow: var(--shadow-2);
-        z-index: 3;
-        border: transparent;
-    }
-
-    @media (max-width: 992px) {
-        .little-nav-btn.active {
-            transform: translateX(53vw);
-        }
-    }
-    @media (max-width: 600px) {
-    .little-nav-btn.active {
-            transform: translateX(40vw);
-        }
-    }
-    @media (min-width: 992px){
-        .little-nav-btn.active {
-            transform: translateX(43vw);
-        }   
-    }
-
-    // backwards animation
-    .little-nav-btn {
-      --button-color: var(--text-color)
-    }
-
-    .little-nav-btn .line {
-      animation: to-open-icon 1s forwards;
-      transition: all 1s;
-    }
-
-    .little-nav-btn.active .line {
-      animation: to-close-icon 1s forwards;
-    }
-
-    .little-nav-btn.active .line.extra {
-        opacity: 0;
-    }
-
-    .little-nav-btn .line.top {
-      --rotation: -45deg;
-      transform-origin: 65px;
-    }
-    .little-nav-btn .line.bottom{
-      --rotation: 45deg;
-      transform-origin: 59px 59px;
-    }
-
-    @keyframes to-close-icon{
-      0% {
-        stroke-dashoffset: 0;
-      }
-      40% {
-        stroke-dashoffset: 79.9;
-      }
-      60% {
-        stroke-dashoffset: 79.9; rotate: var(--rotation);
-      }
-      100% {
-        stroke-dashoffset: 0; rotate: var(--rotation);
-      }
-    }
-    @keyframes to-open-icon{
-      0% {
-        stroke-dashoffset: 0; rotate: var(--rotation);
-      }
-      40% {
-        stroke-dashoffset: 79.9; rotate: var(--rotation);
-      }
-      60% {
-        stroke-dashoffset: 79.9; ;
-      }
-      100% {
-        stroke-dashoffset: 0;
-      } 
+        height: 2px;
     }
 
     .home {
@@ -205,6 +138,7 @@ const Wrapper = styled.div`
         justify-content: center;
         height: 100vh;
         top: 0;
+        margin-bottom: 10rem;
     }
 
     h1 {
@@ -227,10 +161,11 @@ const Wrapper = styled.div`
 
     .hide {
         visibility: hidden;
+        opacity: 0;
     }
 
     .animate {
-        animation: left-to-right 1s forwards 1s;
+        animation: left-to-right 0.5s forwards 0.5s;
         transform: scaleX(0);
         transform-origin: left;
     }
@@ -241,7 +176,7 @@ const Wrapper = styled.div`
         height: 100%;
         content: "";
         background-color: var(--text-color);
-        animation: right-to-left 1s forwards 2s;
+        animation: right-to-left 0.5s forwards 1s;
         transform: scaleX(1);
         transform-origin: right;
     }
@@ -259,5 +194,31 @@ const Wrapper = styled.div`
         }
     }
 
+    .animate-name {
+      animation: small-to-big 3s forwards;
+      transform: scale(0);
+      transform-origin: center;
+    }
+
+    @keyframes small-to-big {
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .logo {
+      position: fixed;
+      font-size: 2em;
+      top: 0.9rem;
+      left: 4rem;
+      transition: 0.5s ease-in-out;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .animate2{
+      visibility: visible;
+      opacity: 1;
+    }
 
 `;
